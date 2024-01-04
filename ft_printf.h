@@ -6,7 +6,7 @@
 /*   By: saeryu <@student.42berlin.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:48:14 by saeryu            #+#    #+#             */
-/*   Updated: 2024/01/03 23:55:08 by saeryu           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:18:57 by saeryu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,30 @@
 /* library */
 # include <unistd.h>
 # include <stdarg.h>
+# include <string.h>
 
 /* macro*/
-# define HEX_L "0123456789ABCDEF"
-# define HEX_S "0123456789abcdef"
+# define HEXL	"0123456789ABCDEF"
+# define HEXS	"0123456789abcdef"
+# define DEC	"0123456789"
+# define NULL_STR	"(null)"
+# define NULL_PTR	"(nil)"
 
-/* functions */
-int	ft_printf(const char *str, ...);
-int	check_condition(const char *str, va_list *args);
+typedef long long			t_ll;
+typedef unsigned long long	t_ull;
 
-/* utils*/
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
-int	ft_putnbr(int n);
-int	ft_putptr(unsigned int ptr);
-int	ft_puthex(unsigned int n, const char *base);
-int	ft_putnbr_unsigned(unsigned int n);
+/* libft */
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+
+/* print */
+void	print_ptr(void *p, int *count);
+void	print_unsigned_nbr(t_ull n, const char *base, int *count);
+void	print_nbr(t_ll n, const char *base, int *count);
+void	print_str(const char *s, int *count);
+void	print_char(int c, int *count);
+
+/* printf */
+int		ft_printf(const char *s, ...);
 
 #endif

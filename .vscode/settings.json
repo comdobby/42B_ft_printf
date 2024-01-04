@@ -11,6 +11,8 @@
         "tuple": "c",
         "variant": "c",
         "__tuple": "c",
-        "cstddef": "c"
+        "cstddef": "c",
+        "stdarg.h": "c",
+        "bitset": "c"
     }
 }

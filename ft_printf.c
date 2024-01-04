@@ -6,58 +6,55 @@
 /*   By: saeryu <@student.42berlin.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:47:58 by saeryu            #+#    #+#             */
-/*   Updated: 2024/01/04 00:05:35 by saeryu           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:26:39 by saeryu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	check_condition(const char *str, va_list *args)
+void	condition(const char *s, va_list *args, int *count)
 {
-	int		length;
-
-	length = 0;
-	if (*str == 'c')
-		length += ft_putchar((char)va_arg(*args, int));
-	else if (*str == 's')
-		length += ft_putstr(va_arg(*args, char *));
-	else if (*str == 'p')
-		length += ft_putptr(va_arg(*args, unsigned int));
-	else if (*str == 'd' || *str == 'i')
-		length += ft_putnbr(va_arg(*args, int));
-	else if (*str == 'u')
-		length += ft_putnbr_unsigned(va_arg(*args, unsigned int));
-	else if (*str == 'x')
-		length += ft_puthex(va_arg(*args, unsigned int), HEX_S);
-	else if (*str == 'X')
-		length += ft_puthex(va_arg(*args, unsigned int), HEX_L);
-	else if (*str == '%')
-		length += ft_putchar('%');
-	return (length);
+	if (*s == 'c')
+		print_char((char)va_arg(*args, int), count);
+	else if (*s == 's')
+		print_str(va_arg(*args, char *), count);
+	else if (*s == 'p')
+		print_ptr(va_arg(*args, void *), count);
+	else if (*s == 'd' || *s == 'i')
+		print_nbr(va_arg(*args, int), DEC, count);
+	else if (*s == 'u')
+		print_nbr(va_arg(*args, unsigned int), DEC, count);
+	else if (*s == 'x')
+		print_nbr(va_arg(*args, unsigned int), HEXS, count);
+	else if (*s == 'X')
+		print_nbr(va_arg(*args, unsigned int), HEXL, count);
+	else if (*s == '%')
+		print_char('%', count);
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *s, ...)
 {
 	va_list	args;
 	int		i;
-	int		length;
+	int		count;
 
 	i = -1;
-	length = 0;
-	va_start(args, str);
-	while (str[++i])
+	count = 0;
+	va_start(args, s);
+	while (s[++i])
 	{
-		if (str[i] == '%')
-			length += check_condition(&str[++i], &args);
+		if (s[i] == '%' && ft_strchr("cspdiuxX%", s[i + 1]))
+			condition(&s[++i], &args, &count);
 		else
-			length += ft_putchar(str[i]);
+			count += write(1, &s[i], 1);
 	}
 	va_end(args);
-	return (length);
+	return (count);
 }
 
 /*
 #include <stdio.h>
+#include <limits.h>
 int	main(void)
 {
 	int	ori;
@@ -94,5 +91,14 @@ int	main(void)
 	printf("----------------------\n");
 	ft_printf("i is %i\n", i);
 	printf("i is %i\n", i);
+	printf("----------------------\n");
+	printf("%p\n", (void *)LONG_MIN);
+	printf("%p\n", (void *)LONG_MAX);
+	ft_printf("%p\n", (void *)LONG_MIN);
+	ft_printf("%p\n", (void *)LONG_MAX);
+	printf("----------------------\n");
+	printf("%p %p \n", (void *)0, (void *)0);
+	ft_printf("%p %p \n", (void *)0, (void *)0);
+	printf("----------------------\n");
 	return (0);
 }*/
