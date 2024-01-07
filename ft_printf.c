@@ -6,13 +6,13 @@
 /*   By: saeryu <@student.42berlin.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:47:58 by saeryu            #+#    #+#             */
-/*   Updated: 2024/01/04 15:26:39 by saeryu           ###   ########.fr       */
+/*   Updated: 2024/01/07 20:44:52 by saeryu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	condition(const char *s, va_list *args, int *count)
+void	check_condition(const char *s, va_list *args, int *count)
 {
 	if (*s == 'c')
 		print_char((char)va_arg(*args, int), count);
@@ -25,9 +25,9 @@ void	condition(const char *s, va_list *args, int *count)
 	else if (*s == 'u')
 		print_nbr(va_arg(*args, unsigned int), DEC, count);
 	else if (*s == 'x')
-		print_nbr(va_arg(*args, unsigned int), HEXS, count);
-	else if (*s == 'X')
 		print_nbr(va_arg(*args, unsigned int), HEXL, count);
+	else if (*s == 'X')
+		print_nbr(va_arg(*args, unsigned int), HEXU, count);
 	else if (*s == '%')
 		print_char('%', count);
 }
@@ -44,7 +44,7 @@ int	ft_printf(const char *s, ...)
 	while (s[++i])
 	{
 		if (s[i] == '%' && ft_strchr("cspdiuxX%", s[i + 1]))
-			condition(&s[++i], &args, &count);
+			check_condition(&s[++i], &args, &count);
 		else
 			count += write(1, &s[i], 1);
 	}

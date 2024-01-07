@@ -6,7 +6,7 @@
 /*   By: saeryu <@student.42berlin.de>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 18:48:14 by saeryu            #+#    #+#             */
-/*   Updated: 2024/01/04 15:18:57 by saeryu           ###   ########.fr       */
+/*   Updated: 2024/01/07 20:42:38 by saeryu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <string.h>
 
 /* macro*/
-# define HEXL	"0123456789ABCDEF"
-# define HEXS	"0123456789abcdef"
+# define HEXU	"0123456789ABCDEF"
+# define HEXL	"0123456789abcdef"
 # define DEC	"0123456789"
 # define NULL_STR	"(null)"
 # define NULL_PTR	"(nil)"
@@ -41,5 +41,6 @@ void	print_char(int c, int *count);
 
 /* printf */
 int		ft_printf(const char *s, ...);
+void	check_condition(const char *s, va_list *args, int *count);
 
 #endif

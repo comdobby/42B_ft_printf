@@ -13,6 +13,7 @@
         "__tuple": "c",
         "cstddef": "c",
         "stdarg.h": "c",
-        "bitset": "c"
+        "bitset": "c",
+        "string.h": "c"
     }
 }
